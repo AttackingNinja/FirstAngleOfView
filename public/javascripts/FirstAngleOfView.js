@@ -1,8 +1,8 @@
 Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMTk0NThiYS1hMDE3LTQ0ZjMtYjBjNS1hZDU1NjczMGZlZGMiLCJpZCI6MzUzMCwiaWF0IjoxNTM3OTUyNjUyfQ.kVpSC5FbwuzHKN4t-MLV4g1oxVUwYrVjaA6UHto-lw0';
 var viewer = new Cesium.Viewer('cesiumContainer');
 var scene = viewer.scene;
-var canvas = viewer.canvas;
-var ellipsoid = view.scene.globe.ellipsoid;
+var canvas = scene.canvas;
+var ellipsoid = viewer.scene.globe.ellipsoid;
 /*function getPosition()
 {
     //得到当前三维场景
@@ -71,11 +71,29 @@ function onClick()
                     duration:1
                 }
             );
-            /*scene.screenSpaceCameraController.enableRotate = false;
+            scene.screenSpaceCameraController.enableRotate = false;
             scene.screenSpaceCameraController.enableTranslate = false;
             scene.screenSpaceCameraController.enableZoom = false;
             scene.screenSpaceCameraController.enableTilt = false;
-            scene.screenSpaceCameraController.enableLook = false;*/
+            scene.screenSpaceCameraController.enableLook = false;
+            document.addEventListener('keydown',function (e) {
+                switch (e.keyCode) {
+                    case 'W'.charCodeAt(0):
+                        viewer.camera.moveForward(1);
+                    case 'S'.charCodeAt(0):
+                        viewer.camera.moveBackward(1);
+                    //case 'A'.charCodeAt(0):
+                        viewer.camera.moveLeft(1);
+                    //case 'D'.charCodeAt(0):
+                        viewer.camera.moveRight(1);
+                }
+            })
+            /*while(true)
+            {
+                document.addEventListener('keydown',function (e) {
+                    window.alert(e.keyCode)
+                },false)
+            }*/
         }
     },Cesium.ScreenSpaceEventType.LEFT_CLICK);
 }
