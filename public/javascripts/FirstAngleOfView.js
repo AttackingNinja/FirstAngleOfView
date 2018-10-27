@@ -78,22 +78,26 @@ function onClick()
             scene.screenSpaceCameraController.enableLook = false;
             document.addEventListener('keydown',function (e) {
                 switch (e.keyCode) {
-                    case 'W'.charCodeAt(0):
+                    case 87://W
                         viewer.camera.moveForward(1);
-                    case 'S'.charCodeAt(0):
+                        break;
+                    case 83://S
                         viewer.camera.moveBackward(1);
-                    //case 'A'.charCodeAt(0):
+                        break;
+                    case 65://A
                         viewer.camera.moveLeft(1);
-                    //case 'D'.charCodeAt(0):
+                        break;
+                    case 68://D
                         viewer.camera.moveRight(1);
+                        break;
+                    case 81://Q
+                        viewer.camera.lookLeft(Cesium.Math.toRadians(5));
+                        break;
+                    case 69://E
+                        viewer.camera.lookRight(Cesium.Math.toRadians(5));
+                        break;
                 }
             })
-            /*while(true)
-            {
-                document.addEventListener('keydown',function (e) {
-                    window.alert(e.keyCode)
-                },false)
-            }*/
         }
     },Cesium.ScreenSpaceEventType.LEFT_CLICK);
 }
