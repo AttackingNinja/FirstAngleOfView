@@ -91,10 +91,17 @@ function onClick()
                         viewer.camera.moveRight(1);
                         break;
                     case 81://Q
-                        viewer.camera.lookLeft(Cesium.Math.toRadians(5));
+                        viewer.camera.lookLeft(Cesium.Math.toRadians(1));
                         break;
                     case 69://E
-                        viewer.camera.lookRight(Cesium.Math.toRadians(5));
+                        viewer.camera.lookRight(Cesium.Math.toRadians(1));
+                        break;
+                    case 32://空格
+                        viewer.camera.moveUp(0.1);
+                        break;
+                    case 88://X
+                        if(viewer.camera.positionCartographic.height>=1.7)
+                            viewer.camera.moveDown(0.1);
                         break;
                 }
             })
