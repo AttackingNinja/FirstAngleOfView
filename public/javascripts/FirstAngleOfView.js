@@ -4,7 +4,7 @@ var scene = viewer.scene;
 var canvas = scene.canvas;
 var ellipsoid = viewer.scene.globe.ellipsoid;
 var handler = new Cesium.ScreenSpaceEventHandler(canvas);
-var walkModeSwitch = false;
+var walkModeSwitch = "off";
 
 function mouseControlSwitch(setSwitch) {
     if (setSwitch == true) {
@@ -39,8 +39,8 @@ function walkModeOnClick() {
                     duration: 1
                 }
             );
-            if (walkModeSwitch == false) {
-                walkModeSwitch = true;
+            if (walkModeSwitch == "choosePosition") {
+                walkModeSwitch = "on";
                 document.getElementById("walkModeButton").style.color = "#fff";
                 document.getElementById("walkModeButton").style.fill = "#fff";
                 document.getElementById("walkModeButton").style.background = "#48b";
@@ -82,12 +82,13 @@ function walkModeOnClick() {
 }
 
 function setWalkModeButtonOnStyle() {
-    if (walkModeSwitch == false) {
+    if (walkModeSwitch == "off") {
         document.getElementById("cesiumContainer").style.cursor = "url(/images/walkManCursor.ico),auto";
+        walkModeSwitch = "choosePosition";
         walkModeOnClick(walkModeSwitch);
     }
-    else {
-        walkModeSwitch = false;
+    else if (walkModeSwitch == "on") {
+        walkModeSwitch = "off";
         handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
         var cartographic = ellipsoid.cartesianToCartographic(viewer.camera.positionWC);
         viewer.camera.flyTo(
@@ -96,6 +97,17 @@ function setWalkModeButtonOnStyle() {
                 duration: 1
             }
         );
+        document.getElementById("walkModeButton").style.color = "rgb(255, 255, 255)";
+        document.getElementById("walkModeButton").style.fill = "none"
+        document.getElementById("walkModeButton").style.background = "#303336";
+        document.getElementById("walkModeButton").style.borderColor = "none";
+        document.getElementById("walkModeButton").style.boxShadow = "rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px";
+        document.getElementById("cesiumContainer").style.cursor = "default";
+    }
+    else
+    {
+        walkModeSwitch = "off";
+        handler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
         document.getElementById("walkModeButton").style.color = "rgb(255, 255, 255)";
         document.getElementById("walkModeButton").style.fill = "none"
         document.getElementById("walkModeButton").style.background = "#303336";
