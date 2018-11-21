@@ -36,44 +36,62 @@ function walkModeOnClick() {
                         pitch: Cesium.Math.toRadians(0),
                         roll: viewer.camera.roll
                     },
-                    duration: 1
+                    duration: 1,
+                    complete: function () {
+                        document.getElementById("heightNumber").innerHTML= viewer.camera.positionCartographic.height.toFixed(2);
+                    }
                 }
             );
             if (walkModeSwitch == "choosePosition") {
                 walkModeSwitch = "on";
+                mouseControlSwitch(false);
                 document.getElementById("walkModeButton").style.color = "#fff";
                 document.getElementById("walkModeButton").style.fill = "#fff";
                 document.getElementById("walkModeButton").style.background = "#48b";
                 document.getElementById("walkModeButton").style.borderColor = "#aef";
                 document.getElementById("walkModeButton").style.boxShadow = "0 0 8px #fff";
                 document.getElementById("cesiumContainer").style.cursor = "default";
+                document.getElementById("viewerControlBoxContainer").style.visibility = "visible";
+                document.getElementById("heightShowerBoxContainer").style.visibility = "visible";
             }
             document.addEventListener('keydown', function (e) {
                 switch (e.keyCode) {
                     case 87://W
-                        viewer.camera.moveForward(1);
+                        if(Cesium.Math.toDegrees(viewer.camera.pitch)<=15)
+                            viewer.camera.lookUp(Cesium.Math.toRadians(1));
                         break;
                     case 83://S
-                        viewer.camera.moveBackward(1);
+                        if(Cesium.Math.toDegrees(viewer.camera.pitch)>=0)
+                            viewer.camera.lookDown(Cesium.Math.toRadians(1));
                         break;
                     case 65://A
-                        viewer.camera.moveLeft(1);
-                        break;
-                    case 68://D
-                        viewer.camera.moveRight(1);
-                        break;
-                    case 81://Q
                         viewer.camera.lookLeft(Cesium.Math.toRadians(1));
                         break;
-                    case 69://E
+                    case 68://D
                         viewer.camera.lookRight(Cesium.Math.toRadians(1));
                         break;
-                    case 32://空格
+                    case 81://Q
                         viewer.camera.moveUp(0.1);
+                        document.getElementById("heightNumber").innerHTML= viewer.camera.positionCartographic.height.toFixed(2);
                         break;
-                    case 88://X
+                    case 69://E
                         if (viewer.camera.positionCartographic.height >= 1.7)
+                        {
                             viewer.camera.moveDown(0.1);
+                            document.getElementById("heightNumber").innerHTML= viewer.camera.positionCartographic.height.toFixed(2);
+                        }
+                        break;
+                    case 38://up
+                        viewer.camera.moveForward(1);
+                        break;
+                    case 40://down
+                        viewer.camera.moveBackward(1);
+                        break;
+                    case 37://left
+                        viewer.camera.moveLeft(1);
+                        break;
+                    case 39://right
+                        viewer.camera.moveRight(1);
                         break;
                 }
             })
@@ -103,6 +121,10 @@ function setWalkModeButtonOnStyle() {
         document.getElementById("walkModeButton").style.borderColor = "none";
         document.getElementById("walkModeButton").style.boxShadow = "rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px";
         document.getElementById("cesiumContainer").style.cursor = "default";
+        document.getElementById("viewerControlBoxContainer").style.visibility = "hidden";
+        document.getElementById("heightShowerBoxContainer").style.visibility = "hidden";
+        document.getElementById("heightNumber").innerHTML="-";
+        mouseControlSwitch(true);
     }
     else
     {

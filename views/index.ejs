@@ -23,8 +23,16 @@
   <body>
     <div id="cesiumContainer">
         <div id="controlBoxContainer" class="controlBoxContainer">
-            <span id="walkModeButton" class="buttonContainer" title="漫游模式" onclick="setWalkModeButtonOnStyle()">
-            </span>
+            <span id="walkModeButton" class="walkModeButtonContainer" title="漫游模式" onclick="setWalkModeButtonOnStyle()"></span>
+            <div id="viewerControlBoxContainer" class="viewerControlBoxContainer">
+                <span id="moveUpButton" class="viewerControlButtonContainer"></span>
+                <span id="moveDownButton" class="viewerControlButtonContainer"></span>
+                <span id="rotateLeftButton" class="viewerControlButtonContainer"></span>
+                <span id="rotateRightBUtton" class="viewerControlButtonContainer"></span>
+            </div>
+            <div id="heightShowerBoxContainer" class="heightShowerBoxContainer">当前高度:
+                <span id="heightNumber">-</span><span> m</span>
+            </div>
         </div>
     </div>
     <link rel="stylesheet" href="/stylesheets/FAV_UI.css" />
