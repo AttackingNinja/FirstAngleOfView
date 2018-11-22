@@ -61,7 +61,7 @@ function walkModeOnClick() {
                             viewer.camera.lookUp(Cesium.Math.toRadians(1));
                         break;
                     case 83://S
-                        if(Cesium.Math.toDegrees(viewer.camera.pitch)>=0)
+                        if(Cesium.Math.toDegrees(viewer.camera.pitch)>=1)
                             viewer.camera.lookDown(Cesium.Math.toRadians(1));
                         break;
                     case 65://A
@@ -138,4 +138,20 @@ function setWalkModeButtonOnStyle() {
         document.getElementById("cesiumContainer").style.cursor = "default";
     }
 }
-
+function onMoveUpButtonClick() {
+    viewer.camera.moveUp(0.1);
+    document.getElementById("heightNumber").innerHTML= viewer.camera.positionCartographic.height.toFixed(2);
+}
+function onMoveDownButtonClick() {
+    if (viewer.camera.positionCartographic.height >= 1.7)
+    {
+        viewer.camera.moveDown(0.1);
+        document.getElementById("heightNumber").innerHTML= viewer.camera.positionCartographic.height.toFixed(2);
+    }
+}
+function onRotateLeftButtonClick() {
+    viewer.camera.lookLeft(Cesium.Math.toRadians(1));
+}
+function onRotateRightButtonClick() {
+    viewer.camera.lookRight(Cesium.Math.toRadians(1));
+}
