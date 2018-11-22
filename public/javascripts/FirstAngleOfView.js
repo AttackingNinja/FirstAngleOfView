@@ -5,7 +5,7 @@ var canvas = scene.canvas;
 var ellipsoid = viewer.scene.globe.ellipsoid;
 var handler = new Cesium.ScreenSpaceEventHandler(canvas);
 var walkModeSwitch = "off";
-
+var e_down;
 function mouseControlSwitch(setSwitch) {
     if (setSwitch == true) {
         scene.screenSpaceCameraController.enableRotate = true;
@@ -138,20 +138,40 @@ function setWalkModeButtonOnStyle() {
         document.getElementById("cesiumContainer").style.cursor = "default";
     }
 }
-function onMoveUpButtonClick() {
+function onMoveUpButtonDown() {
     viewer.camera.moveUp(0.1);
     document.getElementById("heightNumber").innerHTML= viewer.camera.positionCartographic.height.toFixed(2);
+    e_down = setInterval(function () {
+        viewer.camera.moveUp(0.1);
+        document.getElementById("heightNumber").innerHTML= viewer.camera.positionCartographic.height.toFixed(2);
+    },100);
 }
-function onMoveDownButtonClick() {
+function onMoveDownButtonDown() {
     if (viewer.camera.positionCartographic.height >= 1.7)
     {
         viewer.camera.moveDown(0.1);
         document.getElementById("heightNumber").innerHTML= viewer.camera.positionCartographic.height.toFixed(2);
     }
+    e_down = setInterval(function () {
+        if (viewer.camera.positionCartographic.height >= 1.7)
+        {
+            viewer.camera.moveDown(0.1);
+            document.getElementById("heightNumber").innerHTML= viewer.camera.positionCartographic.height.toFixed(2);
+        }
+    },100);
 }
-function onRotateLeftButtonClick() {
+function onRotateLeftButtonDown() {
     viewer.camera.lookLeft(Cesium.Math.toRadians(1));
+    e_down = setInterval(function () {
+        viewer.camera.lookLeft(Cesium.Math.toRadians(1));
+    },50);
 }
-function onRotateRightButtonClick() {
+function onRotateRightButtonDown() {
     viewer.camera.lookRight(Cesium.Math.toRadians(1));
+    e_down = setInterval(function () {
+        viewer.camera.lookRight(Cesium.Math.toRadians(1));
+    },50);
+}
+function onButtonUp() {
+    clearInterval(e_down);
 }
