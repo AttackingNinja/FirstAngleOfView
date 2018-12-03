@@ -56,18 +56,18 @@ function walkModeOnClick() {
             }
             document.addEventListener('keydown', function (e) {
                 switch (e.keyCode) {
-                    case 87://W
+                    case 38://W
                         if(Cesium.Math.toDegrees(viewer.camera.pitch)<=15)
                             viewer.camera.lookUp(Cesium.Math.toRadians(1));
                         break;
-                    case 83://S
+                    case 40://S
                         if(Cesium.Math.toDegrees(viewer.camera.pitch)>=1)
                             viewer.camera.lookDown(Cesium.Math.toRadians(1));
                         break;
-                    case 65://A
+                    case 37://A
                         viewer.camera.lookLeft(Cesium.Math.toRadians(1));
                         break;
-                    case 68://D
+                    case 39://D
                         viewer.camera.lookRight(Cesium.Math.toRadians(1));
                         break;
                     case 81://Q
@@ -81,16 +81,16 @@ function walkModeOnClick() {
                             document.getElementById("heightNumber").innerHTML= viewer.camera.positionCartographic.height.toFixed(2);
                         }
                         break;
-                    case 38://up
+                    case 87://up
                         viewer.camera.moveForward(1);
                         break;
-                    case 40://down
+                    case 83://down
                         viewer.camera.moveBackward(1);
                         break;
-                    case 37://left
+                    case 65://left
                         viewer.camera.moveLeft(1);
                         break;
-                    case 39://right
+                    case 68://right
                         viewer.camera.moveRight(1);
                         break;
                 }
